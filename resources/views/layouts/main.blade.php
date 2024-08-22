@@ -18,6 +18,7 @@ License: https://keenthemes.com/metronic/tailwind/docs/getting-started/license
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     @vite('resources/css/app.css')
+    @livewireStyles
 </head>
 
 <body>
@@ -28,24 +29,13 @@ License: https://keenthemes.com/metronic/tailwind/docs/getting-started/license
         @yield('content')
     </main>
     <div class="flex overflow-hidden bg-white pt-16">
-
-
         <div id="main-content" class="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64">
-
-
             @include('layouts.partials.footer')
         </div>
-
     </div>
 </div>
+
 @vite('resources/js/app.js')
-<script>
-    // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classList.remove('dark')
-    }
-</script>
+@livewireScripts
 </body>
 </html>
