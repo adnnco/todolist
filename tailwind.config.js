@@ -1,9 +1,13 @@
-const colors = require('tailwindcss/colors')
+import defaultTheme from 'tailwindcss/defaultTheme';
+import forms from '@tailwindcss/forms';
+import colors from "tailwindcss/colors.js";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-    // add the folders and files from your templates
     content: [
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './storage/framework/views/*.php',
+        './resources/views/**/*.blade.php',
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
         "./resources/**/*.vue",
@@ -32,7 +36,7 @@ export default {
     theme: {
         colors: {
             primary: colors.indigo,
-            gray: colors.gray,
+            gray: colors.stone,
             blue: colors.sky,
             red: colors.rose,
             pink: colors.fuchsia,
@@ -60,8 +64,7 @@ export default {
         }
     },
     plugins: [
-        // include Flowbite as a plugin in your Tailwind CSS project
+        forms,
         require('flowbite/plugin')
-    ]
-}
-
+    ],
+};

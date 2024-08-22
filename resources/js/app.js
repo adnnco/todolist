@@ -1,5 +1,11 @@
 import './bootstrap';
 
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+
+Alpine.start();
+
 import 'flowbite';
 
 // On page load or when changing themes, best to add inline in `head` to avoid FOUC
@@ -8,3 +14,4 @@ if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localS
 } else {
     document.documentElement.classList.remove('dark')
 }
+
