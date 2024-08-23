@@ -4,12 +4,12 @@ namespace App\Repositories;
 
 use App\Interfaces\TaskRepositoryInterface;
 use App\Models\Task;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 
 class TaskRepository implements TaskRepositoryInterface
 {
 
-    public function all(): mixed
+    public function getAll(): Collection
     {
         return Task::all();
     }
@@ -19,7 +19,7 @@ class TaskRepository implements TaskRepositoryInterface
         return Task::create($data);
     }
 
-    public function update(Request $data, int $id): mixed
+    public function update(array $data, int $id): mixed
     {
         return Task::findOrFail($id)->update($data);
     }
@@ -29,8 +29,13 @@ class TaskRepository implements TaskRepositoryInterface
         return Task::destroy($id);
     }
 
-    public function show(int $id): mixed
+    public function getById(int $id): mixed
     {
         return Task::findOrFail($id);
+    }
+
+    public function paginate(int $limit): mixed
+    {
+       return Task::paginate($limit);
     }
 }

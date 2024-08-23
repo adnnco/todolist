@@ -17,12 +17,6 @@ class TaskCreate extends Component
 
     public string $description;
 
-    protected array $rules = [
-        'name' => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'priority' => 'nullable|string|max:2',
-        'due_date' => 'nullable|date|after:today',
-    ];
 
     public function __construct()
     {
@@ -32,7 +26,7 @@ class TaskCreate extends Component
 
     public function createTask(): void
     {
-        $this->validate();
+        $this->validate(config('request_rules.task_create'));
 
         Task::create([
             'user_id' => auth()->id(),

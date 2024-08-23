@@ -2,8 +2,6 @@
 
 namespace App\Interfaces;
 
-use Illuminate\Http\Request;
-
 /**
  * Interface TaskRepositoryInterface
  *
@@ -11,10 +9,12 @@ use Illuminate\Http\Request;
  */
 interface TaskRepositoryInterface
 {
+    public function paginate(int $limit): mixed;
+
     /**
      * Get all tasks.
      */
-    public function all(): mixed;
+    public function getAll(): mixed;
 
     /**
      * Create a new task.
@@ -23,10 +23,8 @@ interface TaskRepositoryInterface
 
     /**
      * Update an existing task.
-     *
-     * @param int $id
      */
-    public function update(Request $data, int $id): mixed;
+    public function update(array $data, int $id): mixed;
 
     /**
      * Delete a task by its ID.
@@ -36,5 +34,5 @@ interface TaskRepositoryInterface
     /**
      * Show a task by its ID.
      */
-    public function show(int $id): mixed;
+    public function getById(int $id): mixed;
 }
