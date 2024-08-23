@@ -13,15 +13,15 @@ class TaskCreate extends Component
 
     public string $priority;
 
-    public string $due_date;
+    public $due_date;
 
     public string $description;
 
     protected array $rules = [
         'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
         'priority' => 'nullable|string|max:2',
         'due_date' => 'nullable|date|after:today',
-        'description' => 'nullable|string',
     ];
 
     public function __construct()

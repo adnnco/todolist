@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,8 +15,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class Task
  *
  * Represents a task in the to-do list application.
- *
- * @package App\Models
  */
 class Task extends Model
 {
@@ -29,8 +29,6 @@ class Task extends Model
 
     /**
      * Get the user that owns the task.
-     *
-     * @return BelongsTo
      */
     public function user(): BelongsTo
     {
@@ -39,8 +37,6 @@ class Task extends Model
 
     /**
      * Get the parent task of the current task.
-     *
-     * @return BelongsTo
      */
     public function parent(): BelongsTo
     {
@@ -49,8 +45,6 @@ class Task extends Model
 
     /**
      * Get the child tasks of the current task.
-     *
-     * @return HasMany
      */
     public function children(): HasMany
     {
@@ -59,11 +53,27 @@ class Task extends Model
 
     /**
      * Get the labels associated with the task.
-     *
-     * @return BelongsToMany
      */
     public function labels(): BelongsToMany
     {
         return $this->belongsToMany(Label::class, 'task_label');
+    }
+
+    /**
+     * Get the subtasks of the current task.
+     */
+    public function subtasks(): HasMany
+    {
+        return $this->hasMany(Task::class, 'parent_id');
+    }
+
+    /**
+     * Get the formatted due date.
+     */
+    protected function dueDateFormated(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => Carbon::parse($this->due_date)->diffForHumans(),
+        );
     }
 }
