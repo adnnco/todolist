@@ -3,47 +3,103 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Api\LabelStoreRequest;
+use App\Http\Resources\Api\LabelResource;
+use App\Repositories\LabelRepository;
+use App\Services\ApiResponseService;
+use Illuminate\Http\JsonResponse;
 
+/**
+ * Class LabelController
+ *
+ * Controller for handling label-related API requests.
+ */
 class LabelController extends Controller
 {
+    public LabelRepository $labelRepository;
+
     /**
-     * Display a listing of the resource.
+     * LabelController constructor.
      */
-    public function index()
+    public function __construct(LabelRepository $labelRepository)
     {
-        //
+        $this->labelRepository = $labelRepository;
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Display a listing of the labels.
      */
-    public function store(Request $request)
+    public function index(): JsonResponse
     {
-        //
+        return ApiResponseService::sendResponse(
+            LabelResource::collection($this->labelRepository->getAll()), '', 200
+        );
     }
 
     /**
-     * Display the specified resource.
+     * Store a newly created label in storage.
+     *
+     * @param LabelStoreRequest $request
+     * @return JsonResponse
      */
-    public function show(string $id)
+    public function store(LabelStoreRequest $request): JsonResponse
     {
-        //
+        $validated = $request->validated();
+
+        try {
+            $label = $this->labelRepository->create($validated);
+
+            return ApiResponseService::sendResponse(new LabelResource($label), 'Label created successfully', 201);
+        } catch (\Exception $e) {
+            return ApiResponseService::rollback($e, 'Label creation failed');
+        }
     }
 
     /**
-     * Update the specified resource in storage.
+     * Display the specified label.
+     *
+     * @param string $id
+     * @return JsonResponse
      */
-    public function update(Request $request, string $id)
+    public function show(string $id): JsonResponse
     {
-        //
+        return ApiResponseService::sendResponse(new LabelResource($this->labelRepository->getById($id)), '', 200);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Update the specified label in storage.
+     *
+     * @param LabelStoreRequest $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function destroy(string $id)
+    public function update(LabelStoreRequest $request, int $id): JsonResponse
     {
-        //
+        $validated = $request->validated();
+
+        try {
+            $label = $this->labelRepository->update($validated, $id);
+
+            return ApiResponseService::sendResponse(new LabelResource($label), 'Label updated successfully', 200);
+        } catch (\Exception $e) {
+            return ApiResponseService::rollback($e, 'Label update failed');
+        }
+    }
+
+    /**
+     * Remove the specified label from storage.
+     *
+     * @param string $id
+     * @return JsonResponse
+     */
+    public function destroy(string $id): JsonResponse
+    {
+        try {
+            $this->labelRepository->delete($id);
+
+            return ApiResponseService::sendResponse([], 'Label deleted successfully', 200);
+        } catch (\Exception $e) {
+            return ApiResponseService::rollback($e, 'Label deletion failed');
+        }
     }
 }

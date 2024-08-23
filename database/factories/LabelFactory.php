@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Label;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Label>
+ * @extends Factory<Label>
  */
 class LabelFactory extends Factory
 {
@@ -17,7 +18,8 @@ class LabelFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->word,
+            'color' => $this->faker->hexColor,
         ];
     }
 }
