@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('priority')->nullable();
             $table->boolean('completed')->default(false);
-            $table->dateTime('due_date')->nullable();
+            $table->date('due_date')->nullable();
             $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();

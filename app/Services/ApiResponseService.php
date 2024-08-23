@@ -3,24 +3,46 @@
 namespace App\Services;
 
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ApiResponseService
 {
-    public static function rollback($e, $message = 'Something went wrong! Process not completed')
+    /**
+     * Rollback the transaction and throw an exception.
+     *
+     * @param  \Exception  $e  The exception that was caught.
+     * @param  string  $message  The message to return in the response.
+     * @return void
+     *
+     * @throws HttpResponseException
+     */
+    public static function rollback(\Exception $e, string $message = 'Something went wrong! Process not completed')
     {
-        DB::rollBack();
-        self::throw($e, $message);
+        return self::throw($e, $message);
     }
 
-    public static function throw($e, $message = 'Something went wrong! Process not completed')
+    /**
+     * Log the exception and throw an HTTP response exception.
+     *
+     * @param  \Exception  $e  The exception that was caught.
+     * @param  string  $message  The message to return in the response.
+     *
+     * @throws HttpResponseException
+     */
+    public static function throw(\Exception $e, string $message = 'Something went wrong! Process not completed')
     {
         Log::info($e);
         throw new HttpResponseException(response()->json(['message' => $message], 500));
     }
 
-    public static function sendResponse($result, $message, $code = 200): \Illuminate\Http\JsonResponse
+    /**
+     * Send a JSON response.
+     *
+     * @param  mixed  $result  The data to include in the response.
+     * @param  string  $message  The message to include in the response.
+     * @param  int  $code  The HTTP status code for the response.
+     */
+    public static function sendResponse(mixed $result, string $message, int $code = 200): \Illuminate\Http\JsonResponse
     {
         $response = [
             'success' => true,

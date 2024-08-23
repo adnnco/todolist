@@ -8,20 +8,26 @@ use App\Http\Resources\Api\TaskResource;
 use App\Repositories\TaskRepository;
 use App\Services\ApiResponseService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
+/**
+ * Class TaskController
+ *
+ * Controller for handling task-related API requests.
+ */
 class TaskController extends Controller
 {
     public TaskRepository $taskRepository;
 
+    /**
+     * TaskController constructor.
+     */
     public function __construct(TaskRepository $taskRepository)
     {
         $this->taskRepository = $taskRepository;
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the tasks.
      */
     public function index(): JsonResponse
     {
@@ -31,16 +37,18 @@ class TaskController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created task in storage.
+     *
+     * @param TaskStoreRequest $request
+     * @return JsonResponse
      */
-    public function store(TaskStoreRequest $request)
+    public function store(TaskStoreRequest $request): JsonResponse
     {
-        DB::beginTransaction();
+        $validated = $request->validated();
 
         try {
-            $task = $this->taskRepository->create($request->validated());
+            $task = $this->taskRepository->create($validated);
 
-            DB::commit();
             return ApiResponseService::sendResponse(new TaskResource($task), 'Task created successfully', 201);
         } catch (\Exception $e) {
             return ApiResponseService::rollback($e, 'Task creation failed');
@@ -48,24 +56,30 @@ class TaskController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified task.
+     *
+     * @param string $id
+     * @return JsonResponse
      */
-    public function show(string $id)
+    public function show(string $id): JsonResponse
     {
         return ApiResponseService::sendResponse(new TaskResource($this->taskRepository->getById($id)), '', 200);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified task in storage.
+     *
+     * @param TaskStoreRequest $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function update(Request $request, string $id)
+    public function update(TaskStoreRequest $request, int $id): JsonResponse
     {
-        DB::beginTransaction();
+        $validated = $request->validated();
 
         try {
-            $task = $this->taskRepository->update($request->all(), $id);
+            $task = $this->taskRepository->update($validated, $id);
 
-            DB::commit();
             return ApiResponseService::sendResponse(new TaskResource($task), 'Task updated successfully', 200);
         } catch (\Exception $e) {
             return ApiResponseService::rollback($e, 'Task update failed');
@@ -73,16 +87,16 @@ class TaskController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified task from storage.
+     *
+     * @param string $id
+     * @return JsonResponse
      */
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
-        DB::beginTransaction();
-
         try {
             $this->taskRepository->delete($id);
 
-            DB::commit();
             return ApiResponseService::sendResponse([], 'Task deleted successfully', 200);
         } catch (\Exception $e) {
             return ApiResponseService::rollback($e, 'Task deletion failed');

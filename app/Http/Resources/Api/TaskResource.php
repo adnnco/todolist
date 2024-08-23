@@ -2,17 +2,21 @@
 
 namespace App\Http\Resources\Api;
 
-use App\Models\Task;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * Class TaskResource
+ *
+ * Transforms the Task model into a JSON representation.
+ */
 class TaskResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @return array<string, mixed>
+     * @param  Request  $request  The request object.
+     * @return array<string, mixed> The transformed resource as an array.
      */
     public function toArray(Request $request): array
     {
@@ -27,5 +31,4 @@ class TaskResource extends JsonResource
             'subtasks' => $this->subtasks,
         ];
     }
-
 }
