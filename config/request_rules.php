@@ -12,6 +12,7 @@ return [
         'description' => 'nullable|string',
         'priority' => 'nullable|string|max:2',
         'due_date' => 'nullable|date|after:today',
+        'label_id' => 'nullable|integer',
     ],
     'label_create' => [
         'name' => 'required|string|max:255',

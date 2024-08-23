@@ -26,7 +26,7 @@ class TaskResource extends JsonResource
             'description' => $this->description,
             'due_date' => $this->due_date_formated,
             'priority' => $this->priority,
-            'labels' => $this->labels,
+            'label' => new LabelResource($this->label),
             'status' => $this->status,
             'subtasks' => $this->subtasks,
         ];
