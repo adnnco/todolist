@@ -3,28 +3,39 @@
 namespace App\Livewire;
 
 use App\Models\Task;
+use App\Repositories\TaskRepository;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class TaskCreate extends Component
 {
-    public $name;
-    public $priority;
-    public $due_date;
-    public $description;
+    public string $name;
 
-    protected $rules = [
+    public string $priority;
+
+    public string $due_date;
+
+    public string $description;
+
+    protected array $rules = [
         'name' => 'required|string|max:255',
         'priority' => 'nullable|string|max:2',
         'due_date' => 'nullable|date|after:today',
         'description' => 'nullable|string',
     ];
 
-    public function createTask()
+    public function __construct()
+    {
+        $this->taskRepository = new TaskRepository;
+
+    }
+
+    public function createTask(): void
     {
         $this->validate();
 
         Task::create([
-            'user_id' => 1,
+            'user_id' => auth()->id(),
             'name' => $this->name,
             'priority' => $this->priority,
             'due_date' => $this->due_date,
@@ -35,7 +46,8 @@ class TaskCreate extends Component
 
         $this->reset();
     }
-    public function render()
+
+    public function render(): View
     {
         return view('livewire.task-create');
     }

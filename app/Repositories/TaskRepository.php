@@ -14,7 +14,7 @@ class TaskRepository implements TaskRepositoryInterface
         return Task::all();
     }
 
-    public function create(Request $data): mixed
+    public function create(array $data): mixed
     {
         return Task::create($data);
     }

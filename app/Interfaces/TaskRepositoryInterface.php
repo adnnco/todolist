@@ -19,7 +19,7 @@ interface TaskRepositoryInterface
     /**
      * Create a new task.
      */
-    public function create(Request $data): mixed;
+    public function create(array $data): mixed;
 
     /**
      * Update an existing task.
