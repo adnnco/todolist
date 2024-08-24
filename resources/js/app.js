@@ -48,3 +48,5 @@ themeToggleBtn.addEventListener('click', function() {
     }
 
 });
+
+import './algolia';
