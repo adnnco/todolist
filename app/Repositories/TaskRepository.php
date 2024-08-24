@@ -20,7 +20,7 @@ class TaskRepository implements TaskRepositoryInterface
      */
     public function getAll(): Collection
     {
-        return Task::all();
+        return Task::whereUserId(auth()->user()->id)->all();
     }
 
     /**
@@ -80,6 +80,11 @@ class TaskRepository implements TaskRepositoryInterface
      */
     public function paginate(int $limit): mixed
     {
-        return Task::paginate($limit);
+        return Task::whereUserId(auth()->user()->id)->paginate($limit);
+    }
+
+    public function getAllWithSubTasks(int $limit = 10): mixed
+    {
+        return Task::whereParentId(0)->whereCompleted(0)->whereUserId(auth()->user()->id)->with('subtasks')->limit($limit)->get();
     }
 }

@@ -21,7 +21,7 @@
                             <span class="ml-2">{{ $item['label'] }}</span>
                         </button>
                     @else
-                        <a href="{{ $item['route'] }}" class="flex items-center p-2 w-full text-sm font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <a href="{{ route($item['route']) }}" class="flex items-center p-2 w-full text-sm font-medium text-gray-900 rounded-lg dark:text-white {{ request()->routeIs($item['route']) ? 'bg-gray-100 dark:bg-gray-700' : 'hover:bg-gray-100 dark:hover:bg-gray-700' }} group">
                             {!! $item['icon'] !!}
                             <span class="ml-2">{{ $item['label'] }}</span>
                         </a>

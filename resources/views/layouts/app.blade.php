@@ -10,7 +10,9 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
 
     @vite('resources/css/app.css')
     @livewireStyles
@@ -23,12 +25,17 @@
     @include('layouts.partials.sidebar')
 
     <main class="p-4 md:ml-64 h-auto pt-20">
-        {{ $header }}
+        <div>
+            <div class="max-w-5xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                {{ $header }}
 
-        {{ $slot }}
+                {{ $slot }}
+            </div>
+        </div>
+
     </main>
 
-    <div class="flex overflow-hidden bg-white pt-16">
+    <div class="flex overflow-hidden pt-16">
         <div id="main-content" class="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64">
             @include('layouts.partials.footer')
         </div>

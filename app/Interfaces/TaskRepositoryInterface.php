@@ -17,6 +17,8 @@ interface TaskRepositoryInterface
      */
     public function paginate(int $limit): mixed;
 
+    public function getAllWithSubTasks(int $limit = 10): mixed;
+
     /**
      * Get all tasks.
      *

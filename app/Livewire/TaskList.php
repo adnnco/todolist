@@ -8,9 +8,10 @@ use Livewire\Component;
 
 class TaskList extends Component
 {
-
     public $overdueTasks = [];
+
     public $upcomingTasks = [];
+
     public $todayTasks = [];
 
     protected $taskRepository;
@@ -22,7 +23,7 @@ class TaskList extends Component
 
     public function mount()
     {
-        $tasks = $this->taskRepository->getAll();
+        $tasks = $this->taskRepository->getAllWithSubTasks();
 
         foreach ($tasks as $task) {
             if (Carbon::parse($task->due_date)->isToday()) {
@@ -33,6 +34,13 @@ class TaskList extends Component
                 $this->upcomingTasks[] = $task;
             }
         }
+    }
+
+    public function toggleCompletion($taskId, $checked)
+    {
+        $this->taskRepository->update(['completed' => $checked], $taskId);
+
+        $this->tasks = $this->taskRepository->getAllWithSubTasks();
     }
 
     public function render()

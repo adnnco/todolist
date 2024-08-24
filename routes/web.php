@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,13 @@ Route::get('/', function () {
     return redirect('/dashboard');
 });
 
+Route::get('/inbox', [TaskController::class, 'inbox'])->name('inbox');
+Route::get('/today', [TaskController::class, 'today'])->name('today');
+Route::get('/upcoming', [TaskController::class, 'upcoming'])->name('upcoming');
+Route::get('/completed', [TaskController::class, 'upcoming'])->name('completed');
+Route::get('/labels', function () {
+    return 'labels';
+})->name('labels');
 /**
  * Display the dashboard view.
  *
