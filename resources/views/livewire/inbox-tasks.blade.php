@@ -10,4 +10,6 @@
     </div>
 
     {{ $tasks->links() }}
+
+    <livewire:task-edit />
 </div>
