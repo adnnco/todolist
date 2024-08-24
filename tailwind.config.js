@@ -43,8 +43,8 @@ export default {
             indigo: colors.indigo,
         },
         fontFamily: {
-            sans: ['Graphik', 'sans-serif'],
-            serif: ['Merriweather', 'serif'],
+            sans: ['Lato', 'sans-serif'],
+            serif: ['Lato', 'serif'],
         },
         extend: {
             spacing: {

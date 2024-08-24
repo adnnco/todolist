@@ -22,7 +22,7 @@ class TaskList extends Component
 
     public function mount()
     {
-        $tasks = $this->taskRepository->all();
+        $tasks = $this->taskRepository->getAll();
 
         foreach ($tasks as $task) {
             if (Carbon::parse($task->due_date)->isToday()) {
