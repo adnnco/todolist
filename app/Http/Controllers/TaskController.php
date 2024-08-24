@@ -26,4 +26,9 @@ class TaskController extends Controller
         return view('task.completed');
     }
 
+    public function overdue()
+    {
+        return view('task.over-due');
+    }
+
 }

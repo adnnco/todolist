@@ -5,4 +5,5 @@
         </h2>
     </x-slot>
 
+    <livewire:inbox-tasks />
 </x-app-layout>

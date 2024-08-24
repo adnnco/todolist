@@ -5,4 +5,5 @@
         </h2>
     </x-slot>
 
+    <livewire:upcoming-tasks />
 </x-app-layout>

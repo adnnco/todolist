@@ -38,9 +38,8 @@ export default {
             primary: colors.indigo,
             gray: colors.stone,
             blue: colors.sky,
-            red: colors.rose,
-            pink: colors.fuchsia,
-            indigo: colors.indigo,
+            green: colors.green,
+            yellow: colors.amber,
         },
         fontFamily: {
             sans: ['Lato', 'sans-serif'],
