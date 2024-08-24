@@ -12,20 +12,20 @@
 
             <div>
                 <x-input-label for="email" :value="__('Email')"/>
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username"/>
+                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" placeholder="hello@example.com"/>
                 <x-input-error :messages="$errors->get('email')" class="mt-2"/>
             </div>
 
             <div class="mt-4">
                 <x-input-label for="password" :value="__('Password')"/>
-                <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password"/>
+                <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" placeholder="password"/>
                 <x-input-error :messages="$errors->get('password')" class="mt-2"/>
             </div>
 
             <div class="flex items-center justify-between">
                 <div class="flex items-start">
                     <div class="flex items-center h-5">
-                        <input id="remember_me" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="">
+                        <input id="remember_me" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800">
                     </div>
                     <div class="ml-3 text-sm"><label for="remember_me" class="text-gray-500 dark:text-gray-300">{{ __('Remember me') }}</label></div>
                 </div>
