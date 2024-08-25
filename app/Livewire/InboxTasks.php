@@ -19,7 +19,7 @@ class InboxTasks extends Component
         return view('livewire.inbox-tasks', [
             'tasks' => Task::where('user_id', auth()->id())->where('parent_id', 0)
                 ->where('completed', 0)
-                ->with('subtasks')
+                ->with('children')
                 ->orderBy('priority', 'asc')->paginate(10),
         ]);
     }

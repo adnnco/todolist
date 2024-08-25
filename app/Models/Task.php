@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Observers\TaskObserver;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,6 +29,13 @@ class Task extends Model
      * @var array
      */
     protected $fillable = ['user_id', 'parent_id', 'name', 'priority', 'completed', 'due_date', 'description'];
+
+    protected static function booted()
+    {
+        static::addGlobalScope('user', function (Builder $builder) {
+            $builder->where('user_id', auth()->id());
+        });
+    }
 
     /**
      * Get the user that owns the task.
@@ -75,7 +83,7 @@ class Task extends Model
     protected function dueDateFormated(): Attribute
     {
         return Attribute::make(
-            get: fn () => Carbon::parse($this->due_date)->diffForHumans(),
+            get: fn () => $this->due_date ? Carbon::parse($this->due_date)->diffForHumans() : '',
         );
     }
 

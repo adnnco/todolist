@@ -20,7 +20,7 @@ class TaskRepository implements TaskRepositoryInterface
      */
     public function getAll(): Collection
     {
-        return Task::whereUserId(auth()->user()->id)->all();
+        return Task::all();
     }
 
     /**
@@ -51,17 +51,6 @@ class TaskRepository implements TaskRepositoryInterface
     }
 
     /**
-     * Delete a task by its ID.
-     *
-     * @param  int  $id  The ID of the task to delete.
-     * @return int The result of the deletion.
-     */
-    public function delete(int $id): int
-    {
-        return Task::destroy($id);
-    }
-
-    /**
      * Get a task by its ID.
      *
      * @param  int  $id  The ID of the task to retrieve.
@@ -73,6 +62,17 @@ class TaskRepository implements TaskRepositoryInterface
     }
 
     /**
+     * Delete a task by its ID.
+     *
+     * @param  int  $id  The ID of the task to delete.
+     * @return int The result of the deletion.
+     */
+    public function delete(int $id): int
+    {
+        return Task::destroy($id);
+    }
+
+    /**
      * Paginate the tasks.
      *
      * @param  int  $limit  The number of tasks per page.
@@ -80,11 +80,17 @@ class TaskRepository implements TaskRepositoryInterface
      */
     public function paginate(int $limit): mixed
     {
-        return Task::whereUserId(auth()->user()->id)->paginate($limit);
+        return Task::paginate($limit);
     }
 
     public function getAllWithSubTasks(int $limit = 10): mixed
     {
-        return Task::whereParentId(0)->whereCompleted(0)->whereUserId(auth()->user()->id)->with('subtasks')->limit($limit)->get();
+        return Task::where('parent_id', 0)
+            ->where('completed', 0)
+            ->with(['children' => function ($query) {
+                $query->where('completed', 0);
+            }])
+            ->limit($limit)
+            ->get();
     }
 }

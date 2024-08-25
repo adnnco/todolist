@@ -19,7 +19,23 @@ class TaskList extends Component
 
     protected $listeners = ['taskUpdated' => 'refreshTasks', 'taskDeleted' => 'refreshTasks','taskCompleted' => 'refreshTasks'];
 
-    public function refreshTasks() {}
+    public function refreshTasks() {
+        $this->overdueTasks = [];
+        $this->upcomingTasks = [];
+        $this->todayTasks = [];
+
+        $tasks = $this->taskRepository->getAllWithSubTasks();
+
+        foreach ($tasks as $task) {
+            if (Carbon::parse($task->due_date)->isToday()) {
+                $this->todayTasks[] = $task;
+            } elseif (Carbon::parse($task->due_date)->isPast()) {
+                $this->overdueTasks[] = $task;
+            } else {
+                $this->upcomingTasks[] = $task;
+            }
+        }
+    }
 
 
     public function __construct()
