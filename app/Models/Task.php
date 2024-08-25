@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\TaskObserver;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,6 +17,7 @@ use Laravel\Scout\Searchable;
  *
  * Represents a task in the to-do list application.
  */
+
 class Task extends Model
 {
     use HasFactory, SoftDeletes, Searchable;

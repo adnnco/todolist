@@ -9,7 +9,7 @@
 <div id="dropdown{{ $task->id }}" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
         <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ __('Add Sub Task') }}</a></li>
-        <li><button class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" wire:click="$dispatch('editTask', { id: {{ $task->id }} })" x-on:click.prevent="$dispatch('open-modal', 'task-edit-modal')">{{ __('Edit') }}</button></li>
-        <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ __('Delete') }}</a></li>
+        <li><button class="w-full text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" wire:click="$dispatch('editTask', { id: {{ $task->id }} })" x-on:click.prevent="$dispatch('open-modal', 'task-edit-modal')">{{ __('Edit') }}</button></li>
+        <li><button class="w-full text-left block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" wire:click="$dispatch('openDeleteModal', { id: {{ $task->id }} })"  x-on:click.prevent="$dispatch('open-modal', 'task-delete-modal')">{{ __('Delete') }}</button></li>
     </ul>
 </div>

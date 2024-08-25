@@ -16,15 +16,6 @@ Route::get('/', function () {
     return redirect('/dashboard');
 });
 
-Route::get('/inbox', [TaskController::class, 'inbox'])->name('inbox');
-Route::get('/today', [TaskController::class, 'today'])->name('today');
-Route::get('/upcoming', [TaskController::class, 'upcoming'])->name('upcoming');
-Route::get('/completed', [TaskController::class, 'upcoming'])->name('completed');
-Route::get('/over-due', [TaskController::class, 'overdue'])->name('over-due');
-
-Route::get('/labels', function () {
-    return 'labels';
-})->name('labels');
 /**
  * Display the dashboard view.
  *
@@ -61,6 +52,19 @@ Route::middleware('auth')->group(function () {
      * @return RedirectResponse
      */
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+
+    Route::get('/inbox', [TaskController::class, 'inbox'])->name('inbox');
+    Route::get('/today', [TaskController::class, 'today'])->name('today');
+    Route::get('/upcoming', [TaskController::class, 'upcoming'])->name('upcoming');
+    Route::get('/completed', [TaskController::class, 'completed'])->name('completed');
+    Route::get('/over-due', [TaskController::class, 'overdue'])->name('over-due');
+
+    Route::get('/labels', function () {
+        return 'labels';
+    })->name('labels');
+
 });
 
 /**

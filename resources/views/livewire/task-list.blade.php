@@ -37,4 +37,8 @@
             </ul>
         </div>
     </div>
+
+    <livewire:task-edit />
+    <livewire:task-delete />
 </div>
+

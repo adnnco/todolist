@@ -5,5 +5,5 @@
         </h2>
     </x-slot>
 
-    <livewire:complated-tasks />
+    <livewire:completed-tasks />
 </x-app-layout>

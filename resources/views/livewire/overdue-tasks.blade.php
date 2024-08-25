@@ -12,4 +12,5 @@
     {{ $tasks->links() }}
 
     <livewire:task-edit />
+    <livewire:task-delete />
 </div>

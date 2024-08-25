@@ -16,7 +16,6 @@ class TaskEdit extends Component
 
     protected $listeners = ['editTask'];
 
-
     public function editTask(int $id): void
     {
         $task = Task::findOrFail($id);
@@ -47,7 +46,6 @@ class TaskEdit extends Component
 
         $this->dispatch('taskUpdated');
     }
-
 
     public function render()
     {

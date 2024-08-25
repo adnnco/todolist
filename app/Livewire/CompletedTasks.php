@@ -6,16 +6,16 @@ use App\Models\Task;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ComplatedTasks extends Component
+class CompletedTasks extends Component
 {
     use WithPagination;
 
     public function render()
     {
-        return view('livewire.complated-tasks', [
+        return view('livewire.completed-tasks', [
             'tasks' => Task::where('user_id', auth()->id())
                 ->where('completed', 1)
-                ->get(),
+                ->paginate(10),
         ]);
     }
 }

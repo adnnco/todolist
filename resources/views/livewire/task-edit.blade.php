@@ -1,8 +1,8 @@
 <x-modal name="task-edit-modal" focusable>
     @if (session()->has('message'))
-        <div class="alert alert-success">
+        <x-alert-message>
             {{ session('message') }}
-        </div>
+        </x-alert-message>
     @endif
 
     <form class="p-4 md:p-5" wire:submit.prevent="updateTask">
@@ -52,7 +52,5 @@
 
         <x-task-button type="submit">{{ __('Update Task') }}</x-task-button>
         <x-task-button x-on:click="show = false" class="!text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">{{ __('Cancel') }}</x-task-button>
-        <x-task-button type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">{{ __('Delete Task') }}</x-task-button>
-
     </form>
 </x-modal>

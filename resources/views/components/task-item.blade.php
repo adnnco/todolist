@@ -1,7 +1,6 @@
 @props(['task'])
 
 <li class="ps-3 relative items-center" data-accordion="collapse">
-
     @if($task->children->isNotEmpty())
         <button type="button" id="accordion-collapse-btn-{{ $task->id }}" class="absolute top-2.5 bottom-auto -left-6 flex items-center p-1 text-sm font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" data-accordion-target="#accordion-collapse-body-{{ $task->id }}" aria-expanded="false" aria-controls="accordion-collapse-body-{{ $task->id }}">
             <svg class="w-4 h-4 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -13,7 +12,8 @@
 
     <div class="items-center py-3 border-b border-dashed">
         <div class="flex items-stretch">
-            <input type="checkbox" value="" class="w-5 h-5 text-gray-600 bg-gray-100 border-gray-300 rounded focus:ring-gray-500 dark:focus:gray-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" @if($task->completed) checked @endif wire:click="toggleCompletion({{ $task->id }},{{($task->completed) ?0: 1}})">
+
+            <livewire:task-completion :task="$task" :key="$task->id" />
 
             <div class="mx-2 space-y-2">
                 <div class="flex text-sm font-semibold text-gray-900 dark:text-gray-300">
@@ -33,8 +33,6 @@
 
             <x-task-item-dropdown :task="$task" />
         </div>
-
-
     </div>
 
     @if($task->children->isNotEmpty())
@@ -46,6 +44,4 @@
             </ul>
         </div>
     @endif
-
-
 </li>

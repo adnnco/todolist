@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Interfaces\LabelRepositoryInterface;
 use App\Interfaces\TaskRepositoryInterface;
+use App\Models\Task;
+use App\Observers\TaskObserver;
 use App\Repositories\LabelRepository;
 use App\Repositories\TaskRepository;
 use Illuminate\Support\ServiceProvider;
@@ -24,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Task::observe(TaskObserver::class);
     }
 }

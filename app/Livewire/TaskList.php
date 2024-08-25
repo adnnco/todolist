@@ -17,7 +17,9 @@ class TaskList extends Component
 
     protected $taskRepository;
 
-    protected $listeners = ['taskUpdated' => 'refreshTasks'];
+    protected $listeners = ['taskUpdated' => 'refreshTasks', 'taskDeleted' => 'refreshTasks','taskCompleted' => 'refreshTasks'];
+
+    public function refreshTasks() {}
 
 
     public function __construct()
@@ -38,13 +40,6 @@ class TaskList extends Component
                 $this->upcomingTasks[] = $task;
             }
         }
-    }
-
-    public function refreshTasks() {}
-
-    public function toggleCompletion($taskId, $checked): void
-    {
-        $this->taskRepository->update(['completed' => $checked], $taskId);
     }
 
     public function render()
