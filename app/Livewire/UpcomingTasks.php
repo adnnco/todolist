@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Task;
+use App\Repositories\TaskRepository;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -11,18 +12,14 @@ class UpcomingTasks extends Component
 {
     use WithPagination;
 
-    protected $listeners = ['taskUpdated' => 'refreshTasks', 'taskDeleted' => 'refreshTasks','taskCompleted' => 'refreshTasks'];
+    protected $listeners = ['taskUpdated' => 'refreshTasks', 'taskDeleted' => 'refreshTasks', 'taskCompleted' => 'refreshTasks'];
 
-    public function refreshTasks() {}
+    public function refreshTasks(){}
 
-
-    public function render()
+    public function render(TaskRepository $taskRepository)
     {
         return view('livewire.upcoming-tasks', [
-            'tasks' => Task::where('user_id', auth()->id())
-                ->whereDate('due_date', '>', Carbon::today())
-                ->where('completed', 0)
-                ->paginate(10),
+            'tasks' => $taskRepository->getUpcomingWithPaginate(),
         ]);
     }
 }

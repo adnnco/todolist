@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Task;
+use App\Repositories\TaskRepository;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -10,12 +11,14 @@ class CompletedTasks extends Component
 {
     use WithPagination;
 
-    public function render()
+    protected $listeners = ['taskUpdated' => 'refreshTasks', 'taskDeleted' => 'refreshTasks', 'taskCompleted' => 'refreshTasks'];
+
+    public function refreshTasks(){}
+
+    public function render(TaskRepository $taskRepository)
     {
         return view('livewire.completed-tasks', [
-            'tasks' => Task::where('user_id', auth()->id())
-                ->where('completed', 1)
-                ->paginate(10),
+            'tasks' => $taskRepository->getCompletedWithPaginate(),
         ]);
     }
 }
