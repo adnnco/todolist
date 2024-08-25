@@ -38,9 +38,7 @@
                         <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                     </svg>
                 </div>
-                <input name="due_date" wire:model="due_date" datepicker datepicker-min-date="{{ date('m/d/Y') }}" datepicker-autohide id="default-datepicker" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 inline-block w-[90px] ps-6 pt-1.5 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Due date') }}">
-                <x-task-input-error class="mt-2" :messages="$errors->get('due_date')"/>
-
+                <input name="due_date" wire:model="due_date" type="date" min="{{ date('Y-m-d') }}" class=" bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 inline-block w-[90px] ps-6 pt-1.5 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Due date') }}">
             </div>
 
             <div class="relative">
@@ -58,9 +56,10 @@
                         <option value="{{ $priority->value }}">{{ $priority->name }}</option>
                     @endforeach
                 </select>
-                <x-task-input-error class="mt-2" :messages="$errors->get('priority')"/>
             </div>
 
+            <x-task-input-error class="mt-2" :messages="$errors->get('due_date')"/>
+            <x-task-input-error class="mt-2" :messages="$errors->get('priority')"/>
         </div>
 
         <x-task-button type="submit">{{ __('Update Task') }}</x-task-button>

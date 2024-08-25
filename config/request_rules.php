@@ -9,8 +9,8 @@ return [
         'parent_id' => 'nullable|integer',
         'name' => 'required|string|max:255',
         'description' => 'nullable|string',
+        'due_date' => 'nullable|date|after_or_equal:today',
         'priority' => 'nullable|string|max:2',
-        'due_date' => 'nullable|date|after:today',
     ],
     'label_create' => [
         'name' => 'required|string|max:255',

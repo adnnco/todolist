@@ -9,6 +9,7 @@ use Livewire\Component;
 
 class TaskCreate extends Component
 {
+    private TaskRepository $taskRepository;
 
     public $parent_id;
     public $parent_name;
@@ -33,11 +34,11 @@ class TaskCreate extends Component
     }
 
 
-    public function createTask(): void
+    public function createTask(TaskRepository $taskRepository): void
     {
         $this->validate(config('request_rules.task_create'));
 
-        Task::create([
+        $taskRepository->create([
             'user_id' => auth()->id(),
             'name' => $this->name,
             'priority' => $this->priority,
@@ -47,6 +48,7 @@ class TaskCreate extends Component
         ]);
 
         session()->flash('message', 'Task created successfully.');
+        $this->dispatch('taskCreated');
 
         $this->reset();
     }

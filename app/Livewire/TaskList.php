@@ -17,7 +17,7 @@ class TaskList extends Component
 
     protected $taskRepository;
 
-    protected $listeners = ['taskUpdated' => 'refreshTasks', 'taskDeleted' => 'refreshTasks','taskCompleted' => 'refreshTasks'];
+    protected $listeners = ['taskUpdated' => 'refreshTasks', 'taskDeleted' => 'refreshTasks', 'taskCompleted' => 'refreshTasks', 'taskCreated' => 'refreshTasks'];
 
     public function refreshTasks() {
         $this->overdueTasks = [];

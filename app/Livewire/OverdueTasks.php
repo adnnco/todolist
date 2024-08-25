@@ -12,7 +12,7 @@ class OverdueTasks extends Component
 {
     use WithPagination;
 
-    protected $listeners = ['taskUpdated' => 'refreshTasks', 'taskDeleted' => 'refreshTasks', 'taskCompleted' => 'refreshTasks'];
+    protected $listeners = ['taskUpdated' => 'refreshTasks', 'taskDeleted' => 'refreshTasks', 'taskCompleted' => 'refreshTasks', 'taskCreated' => 'refreshTasks'];
 
     public function refreshTasks(){}
 

@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
  *
  * Implements the TaskRepositoryInterface to provide methods for managing tasks.
  */
-class TaskRepository implements TaskRepositoryInterface, TaskComplexRepositoryInterface
+class TaskRepository implements TaskComplexRepositoryInterface, TaskRepositoryInterface
 {
     /**
      * Get all tasks.
@@ -28,7 +28,7 @@ class TaskRepository implements TaskRepositoryInterface, TaskComplexRepositoryIn
     /**
      * Create a new task.
      *
-     * @param array $data The data for the new task.
+     * @param  array  $data  The data for the new task.
      * @return mixed The created task.
      */
     public function create(array $data): mixed
@@ -39,8 +39,8 @@ class TaskRepository implements TaskRepositoryInterface, TaskComplexRepositoryIn
     /**
      * Update an existing task.
      *
-     * @param array $data The data to update the task with.
-     * @param int $id The ID of the task to update.
+     * @param  array  $data  The data to update the task with.
+     * @param  int  $id  The ID of the task to update.
      * @return mixed The updated task.
      */
     public function update(array $data, int $id): mixed
@@ -55,7 +55,7 @@ class TaskRepository implements TaskRepositoryInterface, TaskComplexRepositoryIn
     /**
      * Get a task by its ID.
      *
-     * @param int $id The ID of the task to retrieve.
+     * @param  int  $id  The ID of the task to retrieve.
      * @return mixed The task with the specified ID.
      */
     public function getById(int $id): mixed
@@ -66,7 +66,7 @@ class TaskRepository implements TaskRepositoryInterface, TaskComplexRepositoryIn
     /**
      * Delete a task by its ID.
      *
-     * @param int $id The ID of the task to delete.
+     * @param  int  $id  The ID of the task to delete.
      * @return int The result of the deletion.
      */
     public function delete(int $id): int
@@ -84,6 +84,17 @@ class TaskRepository implements TaskRepositoryInterface, TaskComplexRepositoryIn
             ->limit($limit)
             ->get();
     }
+    /**
+     * Paginate the tasks.
+     *
+     * @param  int  $limit  The number of tasks per page.
+     * @return mixed The paginated tasks.
+     */
+    public function paginate(int $limit): mixed
+    {
+        return Task::paginate($limit);
+    }
+
 
     public function getInboxWithPaginate(int $limit = 10): mixed
     {
@@ -92,43 +103,41 @@ class TaskRepository implements TaskRepositoryInterface, TaskComplexRepositoryIn
             ->with(['children' => function ($query) {
                 $query->where('completed', 0);
             }])
+            ->orderBy('created_at', 'desc')
             ->paginate($limit);
     }
 
-    /**
-     * Paginate the tasks.
-     *
-     * @param int $limit The number of tasks per page.
-     * @return mixed The paginated tasks.
-     */
-    public function paginate(int $limit): mixed
-    {
-        return Task::paginate($limit);
-    }
 
     public function getTodayWithPaginate(int $limit = 10): mixed
     {
+
         return Task::whereDate('due_date', Carbon::today())
+            ->where('parent_id', 0)
             ->where('completed', 0)
+            ->orderBy('due_date', 'asc')
             ->paginate(10);
     }
 
     public function getUpcomingWithPaginate(int $limit = 10): mixed
     {
         return Task::whereDate('due_date', '>', Carbon::today())
+            ->where('parent_id', 0)
             ->where('completed', 0)
+            ->orderBy('due_date', 'asc')
             ->paginate(10);
     }
 
     public function getOverDueWithPaginate(int $limit = 10): mixed
     {
         return Task::whereDate('due_date', '<', Carbon::today())
+            ->where('parent_id', 0)
             ->where('completed', 0)
+            ->orderBy('due_date', 'desc')
             ->paginate(10);
     }
 
     public function getCompletedWithPaginate(int $limit = 10): mixed
     {
-        return Task::where('completed', 1)->paginate(10);
+        return Task::where('completed', 1)->where('parent_id', 0)->orderBy('updated_at', 'desc')->paginate(10);
     }
 }

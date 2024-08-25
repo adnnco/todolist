@@ -12,7 +12,7 @@ class UpcomingTasks extends Component
 {
     use WithPagination;
 
-    protected $listeners = ['taskUpdated' => 'refreshTasks', 'taskDeleted' => 'refreshTasks', 'taskCompleted' => 'refreshTasks'];
+    protected $listeners = ['taskUpdated' => 'refreshTasks', 'taskDeleted' => 'refreshTasks', 'taskCompleted' => 'refreshTasks', 'taskRestored' => 'refreshTasks'];
 
     public function refreshTasks(){}
 
