@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Task;
 use App\Repositories\TaskRepository;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -15,6 +16,9 @@ class TaskList extends Component
     public $todayTasks = [];
 
     protected $taskRepository;
+
+    protected $listeners = ['taskUpdated' => 'refreshTasks'];
+
 
     public function __construct()
     {
@@ -36,11 +40,11 @@ class TaskList extends Component
         }
     }
 
-    public function toggleCompletion($taskId, $checked)
+    public function refreshTasks() {}
+
+    public function toggleCompletion($taskId, $checked): void
     {
         $this->taskRepository->update(['completed' => $checked], $taskId);
-
-        $this->tasks = $this->taskRepository->getAllWithSubTasks();
     }
 
     public function render()

@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Task;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class TaskEdit extends Component
@@ -15,8 +16,10 @@ class TaskEdit extends Component
 
     protected $listeners = ['editTask'];
 
-    public function editTask(Task $task): void
+
+    public function editTask(int $id): void
     {
+        $task = Task::findOrFail($id);
         $this->task = $task;
         $this->name = $task->name;
         $this->priority = $task->priority;
@@ -24,7 +27,7 @@ class TaskEdit extends Component
         $this->description = $task->description;
     }
 
-    public function updateTask(): void
+    public function updateTask()
     {
         $this->validate([
             'name' => 'required|string|max:255',
@@ -42,8 +45,9 @@ class TaskEdit extends Component
 
         session()->flash('message', 'Task updated successfully.');
 
-        $this->emit('taskUpdated');
+        $this->dispatch('taskUpdated');
     }
+
 
     public function render()
     {

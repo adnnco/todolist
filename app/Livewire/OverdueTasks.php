@@ -11,6 +11,10 @@ class OverdueTasks extends Component
 {
     use WithPagination;
 
+    protected $listeners = ['taskUpdated' => 'refreshTasks'];
+
+    public function refreshTasks() {}
+
     public function render()
     {
         return view('livewire.overdue-tasks', [

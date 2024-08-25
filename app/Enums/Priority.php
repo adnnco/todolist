@@ -2,12 +2,12 @@
 
 namespace App\Enums;
 
-enum Priority
+enum Priority: string
 {
-    case P1;
-    case P2;
-    case P3;
-    case P4;
+    case P1 = 'P1';
+    case P2 = 'P2';
+    case P3 = 'P3';
+    case P4 = 'P4';
 
     public function color(): string
     {
@@ -18,11 +18,4 @@ enum Priority
             Priority::P4 => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300',
         };
     }
-
-    /*
-    case P1 = 'yellow-100';
-    case P2 = 'green-100';
-    case P3 = 'blue-100';
-    case P4 = 'gray-100';
-    */
 }
