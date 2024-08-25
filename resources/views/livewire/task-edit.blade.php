@@ -30,7 +30,6 @@
                 </div>
                 <input id="default-due_date" name="due_date" wire:model="due_date" datepicker datepicker-min-date="{{ date('m/d/Y') }}" datepicker-autohide type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 inline-block w-[95px] ps-6 pt-1.5 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Due date') }}">
                 <x-task-input-error class="mt-2" :messages="$errors->get('due_date')" />
-
             </div>
 
             <div class="relative">
