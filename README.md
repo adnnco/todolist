@@ -7,6 +7,7 @@ Welcome to the ToDo List Application! This project is a simple and intuitive tas
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Postman Collection](#postman-collection)
 - [Important Points](#important-points)
 - [Contributing](#contributing)
 - [License](#license)
@@ -48,6 +49,20 @@ npm start
   ```
 
 This will start the development server, and you can view the application in your browser at [http://localhost:3000](http://localhost:3000).
+
+## Postman Collection
+
+To interact with the ToDo API, a Postman collection is provided. This collection includes all the necessary endpoints for user authentication and task management.
+
+1. **Import the Collection**:
+    - Download the Postman collection file included in this repository.
+    - Open Postman, go to the "Collections" tab, and click "Import".
+    - Select the downloaded `.json` file to import the collection.
+
+2. **Running the Collection**:
+    - **API Token**: The first step is to generate an API token using the `API Token (POST)` endpoint. This token is critical for authenticating all other requests.
+    - **Set Up Authentication**: After obtaining the token, it is recommended to set it as a Bearer Token in Postman's authorization tab. This will ensure that the token is automatically included in the headers of all subsequent requests.
+    - Use the provided endpoints to manage tasks, such as creating, updating, retrieving, and deleting tasks.
 
 ## Important Points
 
