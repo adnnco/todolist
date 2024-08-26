@@ -51,7 +51,7 @@ class LabelController extends Controller
 
             return ApiResponseService::sendResponse(new LabelResource($label), 'Label created successfully', 201);
         } catch (\Exception $e) {
-            return ApiResponseService::rollback($e, 'Label creation failed');
+            ApiResponseService::rollback($e, 'Label creation failed');
         }
     }
 
@@ -82,7 +82,7 @@ class LabelController extends Controller
 
             return ApiResponseService::sendResponse(new LabelResource($label), 'Label updated successfully', 200);
         } catch (\Exception $e) {
-            return ApiResponseService::rollback($e, 'Label update failed');
+            ApiResponseService::rollback($e, 'Label update failed');
         }
     }
 
@@ -99,7 +99,7 @@ class LabelController extends Controller
 
             return ApiResponseService::sendResponse([], 'Label deleted successfully', 200);
         } catch (\Exception $e) {
-            return ApiResponseService::rollback($e, 'Label deletion failed');
+            ApiResponseService::rollback($e, 'Label deletion failed');
         }
     }
 }

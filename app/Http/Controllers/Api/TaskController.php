@@ -45,13 +45,12 @@ class TaskController extends Controller
     public function store(TaskStoreRequest $request): JsonResponse
     {
         $validated = $request->validated();
-
         try {
             $task = $this->taskRepository->create($validated);
 
             return ApiResponseService::sendResponse(new TaskResource($task), 'Task created successfully', 201);
         } catch (\Exception $e) {
-            return ApiResponseService::rollback($e, 'Task creation failed');
+            ApiResponseService::rollback($e, 'Task creation failed');
         }
     }
 
@@ -82,7 +81,7 @@ class TaskController extends Controller
 
             return ApiResponseService::sendResponse(new TaskResource($task), 'Task updated successfully', 200);
         } catch (\Exception $e) {
-            return ApiResponseService::rollback($e, 'Task update failed');
+            ApiResponseService::rollback($e, 'Task update failed');
         }
     }
 
@@ -99,7 +98,7 @@ class TaskController extends Controller
 
             return ApiResponseService::sendResponse([], 'Task deleted successfully', 200);
         } catch (\Exception $e) {
-            return ApiResponseService::rollback($e, 'Task deletion failed');
+            ApiResponseService::rollback($e, 'Task deletion failed');
         }
     }
 }

@@ -31,6 +31,7 @@ class LabelRepository implements LabelRepositoryInterface
      */
     public function create(array $data): mixed
     {
+
         return Label::create($data);
     }
 
