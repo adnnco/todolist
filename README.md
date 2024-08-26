@@ -31,8 +31,8 @@ To install and run this project locally, follow these steps:
     ```
 
 2. **Install dependencies**:
-    - Ensure you have [Node.js](https://nodejs.org/) and [Composer](https://getcomposer.org/) installed.
-    - Run the following commands to install the required packages:
+    - Ensure you have [Node.js](https://nodejs.org/) installed.
+    - Run the following command to install the required packages:
     ```bash
     npm install
     composer install
