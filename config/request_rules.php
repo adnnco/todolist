@@ -12,11 +12,9 @@ return [
         'due_date' => 'nullable|date|after_or_equal:today',
         'priority' => 'nullable|string|max:2',
         'label_id' => 'nullable|integer',
-        'user_id' => 'required|integer',
 
     ],
     'label_create' => [
-        'user_id' => 'required|integer',
         'name' => 'required|string|max:255',
         'color' => 'nullable|string|max:7',
     ],

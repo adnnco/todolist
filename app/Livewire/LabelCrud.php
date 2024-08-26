@@ -33,7 +33,7 @@ class LabelCrud extends Component
     {
         $this->validate(config('request_rules.label_create'));
 
-        Label::create(['name' => $this->name, 'color' => $this->color? :'#ffffff', 'user_id' => auth()->id()]);
+        Label::create(['name' => $this->name, 'color' => $this->color ?: '#ffffff', 'user_id' => auth()->id()]);
 
         session()->flash('message', 'Label created successfully.');
 
@@ -52,6 +52,7 @@ class LabelCrud extends Component
     public function edit($id)
     {
         $label = Label::findOrFail($id);
+
         $this->labelId = $id;
         $this->name = $label->name;
         $this->color = $label->color;
@@ -63,7 +64,7 @@ class LabelCrud extends Component
         $this->validate(config('request_rules.label_create'));
 
         $label = Label::findOrFail($this->labelId);
-        $label->update(['name' => $this->name, 'color' => $this->color ? :'#ffffff', 'user_id' => auth()->id()]);
+        $label->update(['name' => $this->name, 'color' => $this->color ?: '#ffffff', 'user_id' => auth()->id()]);
 
         session()->flash('message', 'Label updated successfully.');
 
