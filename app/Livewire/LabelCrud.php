@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\Label;
-use App\Repositories\LabelRepository;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,9 +11,13 @@ class LabelCrud extends Component
     use WithPagination;
 
     public $labels;
+
     public $name;
+
     public $color;
+
     public $labelId;
+
     public $isEdit = false;
 
     protected $rules = [
@@ -26,24 +29,24 @@ class LabelCrud extends Component
         $this->labels = Label::all();
     }
 
+    public function store()
+    {
+        $this->validate(config('request_rules.label_create'));
+
+        Label::create(['name' => $this->name, 'color' => $this->color? :'#ffffff', 'user_id' => auth()->id()]);
+
+        session()->flash('message', 'Label created successfully.');
+
+        $this->resetInputFields();
+        $this->labels = Label::all();
+    }
+
     public function resetInputFields()
     {
         $this->name = '';
         $this->color = '';
         $this->labelId = null;
         $this->isEdit = false;
-    }
-
-    public function store()
-    {
-        $this->validate(config('request_rules.label_create'));
-
-        Label::create(['name' => $this->name, 'color' => $this->color]);
-
-        session()->flash('message', 'Label created successfully.');
-
-        $this->resetInputFields();
-        $this->labels = Label::all();
     }
 
     public function edit($id)
@@ -60,7 +63,7 @@ class LabelCrud extends Component
         $this->validate(config('request_rules.label_create'));
 
         $label = Label::findOrFail($this->labelId);
-        $label->update(['name' => $this->name, 'color' => $this->color]);
+        $label->update(['name' => $this->name, 'color' => $this->color ? :'#ffffff', 'user_id' => auth()->id()]);
 
         session()->flash('message', 'Label updated successfully.');
 

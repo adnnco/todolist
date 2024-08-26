@@ -77,7 +77,7 @@ class TaskRepository implements TaskComplexRepositoryInterface, TaskRepositoryIn
 
     public function getAllWithSubTasks(int $limit = 10): mixed
     {
-        return Task::where('parent_id', 0)
+        return Task::whereNull('parent_id')
             ->where('completed', 0)
             ->with(['children' => function ($query) {
                 $query->where('completed', 0);
@@ -99,7 +99,7 @@ class TaskRepository implements TaskComplexRepositoryInterface, TaskRepositoryIn
 
     public function getInboxWithPaginate(int $limit = 10): mixed
     {
-        return Task::where('parent_id', 0)
+        return Task::whereNull('parent_id')
             ->where('completed', 0)
             ->with(['children' => function ($query) {
                 $query->where('completed', 0);
@@ -113,7 +113,7 @@ class TaskRepository implements TaskComplexRepositoryInterface, TaskRepositoryIn
     {
 
         return Task::whereDate('due_date', Carbon::today())
-            ->where('parent_id', 0)
+            ->whereNull('parent_id')
             ->where('completed', 0)
             ->orderBy('due_date', 'asc')
             ->paginate(10);
@@ -122,7 +122,7 @@ class TaskRepository implements TaskComplexRepositoryInterface, TaskRepositoryIn
     public function getUpcomingWithPaginate(int $limit = 10): mixed
     {
         return Task::whereDate('due_date', '>', Carbon::today())
-            ->where('parent_id', 0)
+            ->whereNull('parent_id')
             ->where('completed', 0)
             ->orderBy('due_date', 'asc')
             ->paginate(10);
@@ -131,7 +131,7 @@ class TaskRepository implements TaskComplexRepositoryInterface, TaskRepositoryIn
     public function getOverDueWithPaginate(int $limit = 10): mixed
     {
         return Task::whereDate('due_date', '<', Carbon::today())
-            ->where('parent_id', 0)
+            ->whereNull('parent_id')
             ->where('completed', 0)
             ->orderBy('due_date', 'desc')
             ->paginate(10);
@@ -139,17 +139,12 @@ class TaskRepository implements TaskComplexRepositoryInterface, TaskRepositoryIn
 
     public function getCompletedWithPaginate(int $limit = 10): mixed
     {
-        return Task::where('completed', 1)->where('parent_id', 0)->orderBy('updated_at', 'desc')->paginate(10);
+        return Task::where('completed', 1)->whereNull('parent_id')->orderBy('updated_at', 'desc')->paginate(10);
     }
 
     public function getLabelWithPaginate(int $label_id, int $limit = 10): mixed
     {
-        $labels = TaskLabel::all()->where('label_id', $label_id)->pluck('task_id');
 
-        return Task::whereIn('id', $labels)
-            ->where('completed', 0)
-            ->with(['children' => function ($query) {
-                $query->where('completed', 0);
-            }])->paginate($limit);
+        return Task::where('completed', 1)->whereNull('parent_id')->orderBy('updated_at', 'desc')->paginate(10);
     }
 }

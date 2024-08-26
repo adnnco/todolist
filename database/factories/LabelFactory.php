@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Label;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +21,8 @@ class LabelFactory extends Factory
         return [
             'name' => $this->faker->word,
             'color' => $this->faker->hexColor,
+            'user_id' => User::inRandomOrder()->first()->id,
+
         ];
     }
 }

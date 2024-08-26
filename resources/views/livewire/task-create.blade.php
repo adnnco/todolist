@@ -9,16 +9,6 @@
     <form class="p-4 md:p-5" wire:submit.prevent="createTask">
         @csrf
 
-        @if($parent_id)
-            <input type="hidden" name="parent_id" wire:model="parent_id">
-
-            <div class="relative z-0 w-full mb-5 group">
-                <div class="p-4 mb-5 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
-                    <span class="font-bold">{{ __('Parent Task:') }}</span> {{ $parent_name }}
-                </div>
-            </div>
-        @endif
-
         <div class="relative z-0 w-full mb-5 group">
             <x-task-text-input id="name" name="name" type="text" class="mt-1 block w-full" wire:model="name" required autofocus autocomplete="name"/>
             <x-task-input-label for="name" :value="__('Task Name')"/>
@@ -62,7 +52,7 @@
             <x-task-input-error class="mt-2" :messages="$errors->get('priority')"/>
         </div>
 
-        <x-task-button type="submit">{{ __('Update Task') }}</x-task-button>
+        <x-task-button type="submit">{{ __('Create Task') }}</x-task-button>
         <x-task-button x-on:click="show = false" class="!text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">{{ __('Cancel') }}</x-task-button>
     </form>
 </x-modal>

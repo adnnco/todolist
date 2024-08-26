@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('labels', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('task_id')->nullable()->constrained('tasks')->onDelete('set null');
             $table->string('name');
             $table->string('color')->default('#ffffff');
             $table->softDeletes();
