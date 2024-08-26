@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('labels', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('color');
+            $table->string('color')->default('#ffffff');
             $table->softDeletes();
             $table->timestamps();
         });

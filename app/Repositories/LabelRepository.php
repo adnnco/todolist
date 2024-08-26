@@ -71,4 +71,9 @@ class LabelRepository implements LabelRepositoryInterface
     {
         return Label::findOrFail($id);
     }
+
+    public function paginate(int $limit): mixed
+    {
+        return Label::paginate($limit);
+    }
 }

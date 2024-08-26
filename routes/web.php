@@ -62,7 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/over-due', [TaskController::class, 'overdue'])->name('over-due');
 
     Route::get('/labels', function () {
-        return 'labels';
+        return view('label.index');
     })->name('labels');
 
 });

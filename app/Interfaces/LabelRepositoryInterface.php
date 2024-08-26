@@ -9,6 +9,15 @@ namespace App\Interfaces;
  */
 interface LabelRepositoryInterface
 {
+
+    /**
+     * Paginate the labels.
+     *
+     * @param  int  $limit  The number of tasks per page.
+     * @return mixed The paginated tasks.
+     */
+    public function paginate(int $limit): mixed;
+
     /**
      * Get all labels.
      *
