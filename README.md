@@ -44,13 +44,17 @@ To install and run this project locally, follow these steps:
     cp .env.example .env
     php artisan key:generate
     ```
+5. **Create SQLite database file** (if using SQLite):
+    ```bash
+    touch database/database.sqlite
+    ```
 
-4. **Run database migrations**:
+6. **Run database migrations**:
     ```bash
     php artisan migrate
     ```
 
-5. **Run database seeders**:
+7. **Run database seeders**:
     ```bash
     php artisan db:seed
     ```
