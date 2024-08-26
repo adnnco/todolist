@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Label;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -13,6 +14,8 @@ class TaskEdit extends Component
     public $priority;
     public $due_date;
     public $description;
+    public $label_id;
+    public $labels;
 
     protected $listeners = ['editTask'];
 
@@ -24,15 +27,22 @@ class TaskEdit extends Component
         $this->priority = $task->priority;
         $this->due_date = $task->due_date;
         $this->description = $task->description;
+        $this->label_id = $task->label_id;
+    }
+
+    public function mount(): void
+    {
+        $this->labels = Label::all();
     }
 
     public function updateTask()
     {
         $this->validate([
             'name' => 'required|string|max:255',
-            'priority' => 'required|string|max:255',
-            'due_date' => 'nullable|date',
             'description' => 'nullable|string',
+            'due_date' => 'nullable|date|after_or_equal:today',
+            'priority' => 'nullable|string|max:2',
+            'label_id' => 'nullable|integer',
         ]);
 
         $this->task->update([

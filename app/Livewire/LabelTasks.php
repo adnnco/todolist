@@ -10,7 +10,6 @@ class LabelTasks extends Component
 {
     use WithPagination;
 
-
     protected $listeners = ['taskUpdated' => 'refreshTasks', 'taskDeleted' => 'refreshTasks', 'taskCompleted' => 'refreshTasks', 'taskCreated' => 'refreshTasks'];
 
     public function refreshTasks(){}
@@ -18,7 +17,7 @@ class LabelTasks extends Component
     public function render(TaskRepository $taskRepository)
     {
         return view('livewire.label-tasks', [
-            'tasks' => $taskRepository->getLabelWithPaginate(request()->route('label'), 10),
+            'tasks' => $taskRepository->getLabelWithPaginate(request()->route('label')),
         ]);
     }
 }

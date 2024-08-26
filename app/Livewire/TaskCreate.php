@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Label;
 use App\Models\Task;
 use App\Repositories\TaskRepository;
 use Illuminate\Contracts\View\View;
@@ -24,6 +25,14 @@ class TaskCreate extends Component
 
     protected $listeners = ['parentTask'];
 
+    public $labels;
+    public $label_id;
+
+    public function mount(): void
+    {
+        $this->labels = Label::all();
+    }
+
     public function parentTask(?int $parent_id)
     {
         $task = Task::find($parent_id);
@@ -32,7 +41,6 @@ class TaskCreate extends Component
         $this->parent_name = $task->name;
 
     }
-
 
     public function createTask(TaskRepository $taskRepository): void
     {
@@ -44,10 +52,12 @@ class TaskCreate extends Component
             'priority' => $this->priority,
             'due_date' => $this->due_date,
             'description' => $this->description,
-            'parent_id' => $this->parent_id
+            'parent_id' => $this->parent_id,
+            'label_id' => $this->label_id
         ]);
 
         session()->flash('message', 'Task created successfully.');
+
         $this->dispatch('taskCreated');
 
         $this->reset();

@@ -29,7 +29,6 @@
                     </svg>
                 </div>
                 <input id="default-due_date" name="due_date" wire:model="due_date" datepicker datepicker-min-date="{{ date('m/d/Y') }}" datepicker-autohide type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 inline-block w-[95px] ps-6 pt-1.5 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="{{ __('Due date') }}">
-                <x-task-input-error class="mt-2" :messages="$errors->get('due_date')" />
             </div>
 
             <div class="relative">
@@ -44,12 +43,29 @@
                         <option value="{{ $priority->value }}">{{ $priority->name }}</option>
                     @endforeach
                 </select>
-                <x-task-input-error class="mt-2" :messages="$errors->get('priority')" />
             </div>
-
+            @if(isset($labels))
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-2 pointer-events-none">
+                        <svg class="w-3 h-3 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M4 6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h11.613a2 2 0 0 0 1.346-.52l4.4-4a2 2 0 0 0 0-2.96l-4.4-4A2 2 0 0 0 15.613 6H4Z"/>
+                        </svg>
+                    </div>
+                    <select name="label_id" wire:model="label_id" id="task_label" class="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md focus:ring-blue-500 focus:border-blue-500 inline-block w-[110px] ps-6 pt-1.5 p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>{{ __('Labels') }}</option>
+                        @foreach($labels as $label)
+                            <option value="{{ $label->id }}">{{ $label->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            @endif
         </div>
 
-        <x-task-button type="submit">{{ __('Update Task') }}</x-task-button>
+        <x-task-input-error class="mt-2" :messages="$errors->get('due_date')" />
+        <x-task-input-error class="mt-2" :messages="$errors->get('priority')" />
+        <x-task-input-error class="mt-2" :messages="$errors->get('label_id')" />
+
+        <x-task-button x-on:click="setTimeout(() => { show = false }, 2000)" type="submit">{{ __('Update Task') }}</x-task-button>
         <x-task-button x-on:click="show = false" class="!text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">{{ __('Cancel') }}</x-task-button>
     </form>
 </x-modal>

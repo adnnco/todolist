@@ -28,7 +28,7 @@ class Task extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'parent_id', 'name', 'priority', 'completed', 'due_date', 'description'];
+    protected $fillable = ['user_id', 'parent_id', 'label_id', 'name', 'priority', 'completed', 'due_date', 'description'];
 
     protected static function booted()
     {
@@ -61,9 +61,9 @@ class Task extends Model
         return $this->hasMany(Task::class, 'parent_id');
     }
 
-    public function labels(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function label(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(Label::class);
+        return $this->hasOne(Label::class, 'id', 'label_id');
     }
 
     /**

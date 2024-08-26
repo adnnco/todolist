@@ -23,7 +23,7 @@ class Label extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'name', 'color'];
+    protected $fillable = ['user_id', 'task_id', 'name', 'color'];
 
     protected static function booted()
     {

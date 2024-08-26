@@ -15,7 +15,7 @@ class TaskList extends Component
 
     public $todayTasks = [];
 
-    protected $taskRepository;
+    protected TaskRepository $taskRepository;
 
     protected $listeners = ['taskUpdated' => 'refreshTasks', 'taskDeleted' => 'refreshTasks', 'taskCompleted' => 'refreshTasks', 'taskCreated' => 'refreshTasks'];
 

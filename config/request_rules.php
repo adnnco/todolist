@@ -11,6 +11,7 @@ return [
         'description' => 'nullable|string',
         'due_date' => 'nullable|date|after_or_equal:today',
         'priority' => 'nullable|string|max:2',
+        'label_id' => 'nullable|integer',
     ],
     'label_create' => [
         'name' => 'required|string|max:255',

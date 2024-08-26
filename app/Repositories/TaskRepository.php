@@ -82,6 +82,7 @@ class TaskRepository implements TaskComplexRepositoryInterface, TaskRepositoryIn
             ->with(['children' => function ($query) {
                 $query->where('completed', 0);
             }])
+            ->with('label')
             ->limit($limit)
             ->get();
     }
@@ -139,12 +140,12 @@ class TaskRepository implements TaskComplexRepositoryInterface, TaskRepositoryIn
 
     public function getCompletedWithPaginate(int $limit = 10): mixed
     {
-        return Task::where('completed', 1)->whereNull('parent_id')->orderBy('updated_at', 'desc')->paginate(10);
+        return Task::where('completed', 1)->whereNull('parent_id')->with('label')->orderBy('updated_at', 'desc')->paginate(10);
     }
 
-    public function getLabelWithPaginate(int $label_id, int $limit = 10): mixed
+    public function getLabelWithPaginate($label_id, int $limit = 10): mixed
     {
-
-        return Task::where('completed', 1)->whereNull('parent_id')->orderBy('updated_at', 'desc')->paginate(10);
+        $label_id = $label_id * 1;
+        return Task::where('label_id',$label_id)->where('completed', 0)->whereNull('parent_id')->paginate(10);
     }
 }

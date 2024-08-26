@@ -4,7 +4,7 @@
             @forelse($tasks as $task)
                 <x-task-item :task="$task" :wire:key="$task->id" />
             @empty
-                <li>No tasks for today.</li>
+                <li>No tasks for label.</li>
             @endforelse
         </ul>
     </div>
