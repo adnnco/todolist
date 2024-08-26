@@ -31,4 +31,9 @@ class TaskController extends Controller
         return view('task.over-due');
     }
 
+    public function label()
+    {
+        return view('task.labels');
+    }
+
 }

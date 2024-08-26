@@ -61,12 +61,9 @@ class Task extends Model
         return $this->hasMany(Task::class, 'parent_id');
     }
 
-    /**
-     * Get the label associated with the task.
-     */
-    public function label(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function labels(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasOne(Label::class, 'id');
+        return $this->belongsToMany(Label::class, 'task_label', 'task_id', 'label_id');
     }
 
     /**

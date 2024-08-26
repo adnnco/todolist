@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\TaskComplexRepositoryInterface;
 use App\Interfaces\TaskRepositoryInterface;
 use App\Models\Task;
+use App\Models\TaskLabel;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -139,5 +140,16 @@ class TaskRepository implements TaskComplexRepositoryInterface, TaskRepositoryIn
     public function getCompletedWithPaginate(int $limit = 10): mixed
     {
         return Task::where('completed', 1)->where('parent_id', 0)->orderBy('updated_at', 'desc')->paginate(10);
+    }
+
+    public function getLabelWithPaginate(int $label_id, int $limit = 10): mixed
+    {
+        $labels = TaskLabel::all()->where('label_id', $label_id)->pluck('task_id');
+
+        return Task::whereIn('id', $labels)
+            ->where('completed', 0)
+            ->with(['children' => function ($query) {
+                $query->where('completed', 0);
+            }])->paginate($limit);
     }
 }

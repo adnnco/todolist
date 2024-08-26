@@ -47,7 +47,7 @@
                     <td class="px-6 py-4 text-right">
                         <x-task-button wire:click="edit({{ $label->id }})" class="">{{ __('Edit') }}</x-task-button>
                         <x-task-button wire:click="delete({{ $label->id }})" class="bg-red-700 hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 focus:ring-red-300 dark:focus:ring-red-900">{{ __('Delete') }}</x-task-button>
-                        <x-task-button class="bg-gray-800 hover:bg-gray-900 focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">{{ __('Show Tasks') }}</x-task-button>
+                        <a href="{{ route('label', ['label' => $label->id]) }}" class="px-3 py-2 text-sm font-medium text-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">{{ __('Show Tasks') }}</a>
                     </td>
                 </tr>
             @endforeach

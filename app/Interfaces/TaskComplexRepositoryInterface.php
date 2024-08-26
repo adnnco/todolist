@@ -56,4 +56,9 @@ interface TaskComplexRepositoryInterface
      * @return mixed The paginated collection of completed tasks.
      */
     public function getCompletedWithPaginate(int $limit = 10): mixed;
+
+
+    public function getLabelWithPaginate(int $label_id,int $limit = 10): mixed;
+
+
 }

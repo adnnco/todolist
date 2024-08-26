@@ -65,6 +65,8 @@ Route::middleware('auth')->group(function () {
         return view('label.index');
     })->name('labels');
 
+    Route::get('/labels/{label}', [TaskController::class, 'label'])->name('label');
+
 });
 
 /**
