@@ -45,7 +45,7 @@ To install and run this project locally, follow these steps:
 After completing the installation steps, you can start the application by running:
 
 ```bash
-npm start
+npm run dev or npm run build
   ```
 
 This will start the development server, and you can view the application in your browser at [http://localhost:3000](http://localhost:3000).
