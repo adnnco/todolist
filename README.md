@@ -75,7 +75,7 @@ This will start the development server, and you can view the application in your
 To interact with the ToDo API, a Postman collection is provided. This collection includes all the necessary endpoints for user authentication and task management.
 
 1. **Import the Collection**:
-    - Download the [Postman collection]([ToDoApiDocumantaion.postman_collection.json](ToDoApiDocumantaion.postman_collection.json)) file included in this repository.
+    - Download the [Postman collection](ToDoApiDocumantaion.postman_collection.json) file included in this repository.
     - Open Postman, go to the "Collections" tab, and click "Import".
     - Select the downloaded `.json` file to import the collection.
 
