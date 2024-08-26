@@ -31,21 +31,37 @@ To install and run this project locally, follow these steps:
     ```
 
 2. **Install dependencies**:
-    - Ensure you have [Node.js](https://nodejs.org/) installed.
-    - Run the following command to install the required packages:
+    - Ensure you have [Node.js](https://nodejs.org/) and [Composer](https://getcomposer.org/) installed.
+    - Run the following commands to install the required packages:
     ```bash
     npm install
+    composer install
     ```
 
 3. **Set up the environment**:
     - If your project requires environment variables, create a `.env` file in the root directory and configure it with necessary variables. (Refer to `.env.example` if available)
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
+
+4. **Run database migrations**:
+    ```bash
+    php artisan migrate
+    ```
+
+5. **Run database seeders**:
+    ```bash
+    php artisan db:seed
+    ```
 
 ## Usage
 
 After completing the installation steps, you can start the application by running:
 
 ```bash
-npm start
+npm run dev or npm run build
+php artisan serve
   ```
 
 This will start the development server, and you can view the application in your browser at [http://localhost:3000](http://localhost:3000).
